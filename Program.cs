@@ -37,7 +37,38 @@ namespace Advanced_3_Part_2
         }
 
 
-        static void Main(string[] args)
+        #region Movie Class
+        class Movie
+        {
+            public int ID { get; set; }
+            public string Title { get; set; }
+            public string Description { get; set; }
+            public int Price { get; set; }
+
+            public Movie(int id, string title, string des, int price)
+            {
+                ID = id;
+                Title = title;
+                Description = des;
+                Price = price;
+            }
+            public override string ToString()
+            {
+                return $"{ID} ,name {Title},Description {Description} ,price {Price}";
+            }
+            public override bool Equals(object? obj)
+            {
+                Movie? movie = obj as Movie;
+                return this.ID.Equals(movie?.ID??0) && this.Title.Equals(movie?.Title??"") && this.Price.Equals(movie?.Price??0);
+            }
+            public override int GetHashCode()
+            {
+                return HashCode.Combine(ID, Title, Price);
+            }
+        }
+
+            #endregion
+            static void Main(string[] args)
         {
             #region Demo Of HashTabel
             Hashtable AnyThing = new Hashtable();//Non-Genric Collection
@@ -85,23 +116,47 @@ namespace Advanced_3_Part_2
             //Remove Value 
             Note.Remove("mariam");
             // Loop on Keys and Values
-            foreach(var item in Note)
-            {
-                Console.WriteLine($"Name of Person {item.Key} and his ID is {item.Value}");
-            }
+                //foreach(var item in Note)
+                //{
+                //    Console.WriteLine($"Name of Person {item.Key} and his ID is {item.Value}");
+                //}
             //Loop on Keys 
             Console.WriteLine("-------------------");
-            foreach (var names in Note.Keys)
-            {
-                Console.WriteLine(names);
-            }
+                //foreach (var names in Note.Keys)
+                //{
+                //    Console.WriteLine(names);
+                //}
             Console.WriteLine("--------------------");
             //Loop on Values 
-            foreach(var ID in Note.Values)
-            {
-                Console.WriteLine(ID);
-            }
+                //foreach(var ID in Note.Values)
+                //{
+                //    Console.WriteLine(ID);
+                //}
             //----------------------------------
+            #endregion
+
+            #region Demo Of HashSet
+            HashSet<int> num = new HashSet<int>(); 
+            //Generic collection  and Unique Data Like List But it's  Unique
+            num.Add(2);//Add
+            num.Add(4);//Add
+            num.Add(6);//Add
+            num.Add(2);// No  (with No Exception) -->Ignore
+
+
+            HashSet<Movie> list = new HashSet<Movie>()
+            {
+                new Movie(1,"Comedy Life 01","text",200),
+                new Movie(2,"Comedy Life 02","text",100),
+                new Movie(3,"Comedy Life 03","text",400),
+
+            };
+            list.Add(new Movie(1, "Comedy Life 01", "text", 200));
+            foreach (var item in list)
+            {
+                Console.WriteLine(item);
+            }
+            
             #endregion
         }
     }
